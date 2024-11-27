@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Absensi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .qr-code {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        .attendance-item {
+            transition: transform 0.2s ease-in-out;
+        }
+        .attendance-item:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto max-w-4xl px-4 py-8">
+        <!-- Header -->
+        <header class="bg-white shadow-md rounded-lg mb-8 p-4 flex justify-between items-center">
+            <button class="text-gray-600 hover:text-gray-800">
+                <i class="fas fa-arrow-left text-xl"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-gray-800">Absensi Karyawan</h1>
+            <div class="w-8"></div>
+        </header>
+
+        <!-- Konten Utama -->
+        <main class="grid md:grid-cols-2 gap-8">
+            <!-- Kolom QR Code -->
+            <section class="bg-white rounded-lg shadow-md p-6 text-center">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Scan QR Code</h2>
+                <img 
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://absensi.example.com" 
+                    alt="Kode QR Absensi" 
+                    class="qr-code mx-auto w-64 h-64 object-cover"
+                >
+            </section>
+
+            <!-- Kolom Riwayat Absensi -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-6 text-gray-800">Riwayat Absensi</h3>
+                
+                <div class="space-y-4">
+                    <!-- Item Absensi -->
+                    <div class="attendance-item bg-gray-50 rounded-lg p-4 flex items-center hover:bg-gray-100">
+                        <div class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                            L
+                        </div>
+                        <div class="flex-grow">
+                            <p class="font-semibold text-gray-800">Lisoy</p>
+                            <p class="text-sm text-gray-500">Hadir</p>
+                        </div>
+                        <span class="text-sm text-gray-500">10 Jun 2024, 09:41</span>
+                    </div>
+
+                    <div class="attendance-item bg-gray-50 rounded-lg p-4 flex items-center hover:bg-gray-100">
+                        <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                            G
+                        </div>
+                        <div class="flex-grow">
+                            <p class="font-semibold text-gray-800">Gearuby</p>
+                            <p class="text-sm text-gray-500">Hadir</p>
+                        </div>
+                        <span class="text-sm text-gray-500">10 Jun 2024, 09:41</span>
+                    </div>
+
+                    <div class="attendance-item bg-gray-50 rounded-lg p-4 flex items-center hover:bg-gray-100">
+                        <div class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                            S
+                        </div>
+                        <div class="flex-grow">
+                            <p class="font-semibold text-gray-800">Sarazel</p>
+                            <p class="text-sm text-gray-500">Hadir</p>
+                        </div>
+                        <span class="text-sm text-gray-500">10 Jun 2024, 09:41</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
