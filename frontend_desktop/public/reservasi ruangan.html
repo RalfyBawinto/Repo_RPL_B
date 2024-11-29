@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reservasi Ruangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex flex-col items-center min-h-screen">
+    <div class="w-full max-w-4xl">
+        <header class="w-full flex items-center justify-between p-6 bg-white shadow-md rounded-b-xl">
+            <i class="fas fa-arrow-left text-xl cursor-pointer hover:text-gray-600 transition"></i>
+            <h1 class="text-2xl font-bold text-gray-800">Reservasi Ruangan</h1>
+            <div class="w-6"></div>
+        </header>
+        
+        <main class="mt-8 space-y-6">
+            <!-- Pilih Tanggal -->
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Pilih Tanggal</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <button class="text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="text-lg font-semibold">Juni 2024</h2>
+                    <button class="text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-7 gap-2 text-center">
+                    <div class="text-gray-500">Sen</div>
+                    <div class="text-gray-500">Sel</div>
+                    <div class="text-gray-500">Rab</div>
+                    <div class="text-gray-500">Kam</div>
+                    <div class="text-gray-500">Jum</div>
+                    <div class="text-gray-500">Sab</div>
+                    <div class="text-gray-500">Min</div>
+
+                    <!-- Tanggal Lengkap -->
+                    <div class="text-gray-400">27</div>
+                    <div class="text-gray-400">28</div>
+                    <div class="text-gray-400">29</div>
+                    <div class="text-gray-400">30</div>
+                    <div class="text-gray-400">31</div>
+                    <div class="text-blue-600 bg-blue-100 rounded">1</div>
+                    <div class="text-blue-600">2</div>
+                    <div class="text-blue-600">3</div>
+                    <div class="text-blue-600">4</div>
+                    <div class="text-blue-600">5</div>
+                    <div class="text-blue-600">6</div>
+                    <div class="text-blue-600">7</div>
+                    <div class="text-blue-600">8</div>
+                    <div class="text-blue-600">9</div>
+                    <div class="text-blue-600">10</div>
+                    <div class="text-blue-600">11</div>
+                    <div class="text-blue-600">12</div>
+                    <div class="text-blue-600">13</div>
+                    <div class="text-blue-600">14</div>
+                    <div class="text-blue-600">15</div>
+                    <div class="text-blue-600">16</div>
+                    <div class="text-blue-600">17</div>
+                    <div class="text-blue-600">18</div>
+                    <div class="text-blue-600">19</div>
+                    <div class="text-blue-600">20</div>
+                    <div class="text-blue-600">21</div>
+                    <div class="text-blue-600">22</div>
+                    <div class="text-blue-600">23</div>
+                    <div class="text-blue-600">24</div>
+                    <div class="text-blue-600">25</div>
+                    <div class="text-blue-600">26</div>
+                    <div class="text-blue-600">27</div>
+                    <div class="text-blue-600">28</div>
+                    <div class="text-gray-400">1</div>
+                    <div class="text-gray-400">2</div>
+                </div>
+            </div>
+
+            <!-- Pilih Ruangan -->
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Pilih Ruangan</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition text-left">
+                        Cyber
+                    </button>
+                    <button class="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition text-left">
+                        TBD
+                    </button>
+                    <button class="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition text-left">
+                        Mulmed
+                    </button>
+                    <button class="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition text-left">
+                        RPL
+                    </button>
+                </div>
+            </div>
+
+            <!-- Waktu -->
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Pilih Waktu</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Mulai</label>
+                        <input 
+                            type="time" 
+                            class="w-full p-3 bg-gray-50 rounded-lg border border-gray-200"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Selesai</label>
+                        <input 
+                            type="time" 
+                            class="w-full p-3 bg-gray-50 rounded-lg border border-gray-200"
+                        >
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-8 w-full px-6">
+            <button class="w-full py-3 bg-black text-white rounded-xl hover:bg-blue-700 transition text-lg font-semibold shadow-md">
+                Ajukan Reservasi
+            </button>
+        </footer>
+    </div>
+</body>
+</html>

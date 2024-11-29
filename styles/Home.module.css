@@ -11,6 +11,10 @@
   }
   
   .codeBlock {
-    background-color: #f4f4f4;
-    padding: 15px;
+    background-color: #9b9b9b; /* Contoh: warna latar belakang */
+    color: #333;               /* Contoh: warna teks */
+    font-family: 'Courier New', Courier, monospace; /* Font monospaced */
+    padding: 10px;
+    white-space: pre-wrap;       /* Pastikan teks mengikuti format pre */
+    overflow-x: auto;            /* Scroll horizontal jika konten terlalu panjang */
   }
