@@ -40,39 +40,7 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
-// Endpoint untuk login (signin)
-app.post('/api/login', (req, res) => {
-  console.log('Login attempt received');
-  const { email, password } = req.body;
-
-  // Query untuk mencari user berdasarkan email dan password
-  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
-    if (err) {
-      return res.status(500).json({ message: 'Database error' });
-    }
-
-    if (results.length > 0) {
-      const user = results[0];
-
-      // Verifikasi password menggunakan bcrypt
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error comparing password' });
-        }
-
-        if (isMatch) {
-          res.status(200).json({ message: 'Login successful' });  // Login berhasil
-        } else {
-          res.status(400).json({ message: 'Invalid email or password' });  // Password tidak cocok
-        }
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid email or password' });  // Email tidak ditemukan
-    }
-  });
-});
-
-// Endpoint untuk registrasi pengguna (signup)
+// Endpoint untuk registrasi pengguna
 app.post('/api/signup', async (req, res) => {
   const { name, email, password, role, subRole } = req.body;
 

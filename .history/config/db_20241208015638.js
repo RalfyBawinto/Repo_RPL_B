@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Konfigurasi koneksi database
-const sequelize = new Sequelize('mysql://user:rpl_pass@localhost:3307/db_rpl_b', {
+const sequelize = new Sequelize('mysql://user:rpl_pass@localhost:3306/db_rpl_b', {
   logging: false,  // Nonaktifkan logging jika tidak diperlukan
 });
 
