@@ -1,0 +1,51 @@
+GET http://localhost:3500/api/users
+
+###
+# Test Signup API
+POST http://localhost:3500/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "ade5",
+  "email": "ade5@example.com",
+  "password": "ade_pass5",
+  "role": "Mahasiswa",
+  "subRole": "Asisten Lab"
+}
+
+###
+# Test Login API
+POST http://localhost:3500/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ade5@example.com",
+  "password": "ade_pass5"
+}
+
+
+###
+# Endpoint untuk mendapatkan profil pengguna
+GET http://localhost:3500/api/user/profile
+Authorization: Bearer a39df2
+Content-Type: application/json
+
+###
+# Mendapatkan data alat berdasarkan lab_name
+GET http://localhost:3500/api/monitoring?labName=Cyber
+Content-Type: application/json
+
+
+###
+## Menambahkan item alat baru
+POST http://localhost:3500/api/monitoring
+Content-Type: application/json
+
+{
+  "lab_name": "TBD",
+ "item_name": "Komputer",
+ "total": 20,
+ "available": 17,
+ "broken": 3,
+ "under_repair": 0
+}

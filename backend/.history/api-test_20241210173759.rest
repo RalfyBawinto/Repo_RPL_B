@@ -1,0 +1,23 @@
+### Signup API
+POST http://localhost:3001/signup
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "role": "Mahasiswa",
+  "subRole": "Asisten Lab"
+}
+
+
+### Login APIs
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+
