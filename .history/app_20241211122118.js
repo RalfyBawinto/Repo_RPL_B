@@ -45,7 +45,7 @@ app.post('/api/login', (req, res) => {
   console.log('Login attempt received');
   const { email, password } = req.body;
 
-  // Query untuk mencari user berdasarkan email
+  // Query untuk mencari user berdasarkan email dan password
   db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
     if (err) {
       return res.status(500).json({ message: 'Database error' });
@@ -61,21 +61,16 @@ app.post('/api/login', (req, res) => {
         }
 
         if (isMatch) {
-          // Login berhasil, kirimkan nama pengguna dan informasi lainnya
-          res.status(200).json({
-            message: 'Login successful',
-            user: { name: user.name, email: user.email, role: user.role }
-          });
+          res.status(200).json({ message: 'Login successful' });  // Login berhasil
         } else {
-          res.status(400).json({ message: 'Invalid email or password' });
+          res.status(400).json({ message: 'Invalid email or password' });  // Password tidak cocok
         }
       });
     } else {
-      res.status(400).json({ message: 'Invalid email or password' });
+      res.status(400).json({ message: 'Invalid email or password' });  // Email tidak ditemukan
     }
   });
 });
-
 
 // Endpoint untuk registrasi pengguna (signup)
 app.post('/api/signup', async (req, res) => {
