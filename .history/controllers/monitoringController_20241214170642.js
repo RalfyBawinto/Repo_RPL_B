@@ -30,23 +30,11 @@ export const getLabItems = async (req, res) => {
 
     // Mapping ikon dan warna berdasarkan item_name
     const iconMapping = {
-      Komputer: {
-        icon: "🖥️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
+      Komputer: { icon: "🖥️", iconBg: "bg-blue-100", iconColor: "text-blue-600" },
       Keyboard: { icon: "⌨️", iconBg: "bg-red-100", iconColor: "text-red-600" },
-      Mouse: {
-        icon: "🖱️",
-        iconBg: "bg-green-100",
-        iconColor: "text-green-600",
-      },
-      "Printer 3D": {
-        icon: "🖨️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
-    };
+      Mouse: { icon: "🖱️", iconBg: "bg-green-100", iconColor: "text-green-600"},
+      Printer 3D: { icon: "🖨️", iconBg: "bg-blue-100", iconColor: "text-blue-600"},
+    }
 
     // Kelompokkan data berdasarkan lab_name dan tambahkan properti ikon
     const groupedItems = labItems.reduce((acc, item) => {

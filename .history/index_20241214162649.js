@@ -18,21 +18,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000", // Change to your frontend URL
+    origin: "http://localhost:3000", // Ganti dengan URL frontend Anda
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
 
-// Route setup
+// Routing
 app.use("/api/user", userRoute);
 app.use("/api", authRoute);
 app.use("/api", monitoringRoute);
 
-// Export `io` for use in other files
+// Ekspor `io` untuk digunakan di file lain
 export { io };
 
-// Integrate Socket.IO
+// Integrasi Socket.IO
 io.on("connection", (socket) => {
   console.log("User connected: " + socket.id);
 
@@ -41,14 +41,14 @@ io.on("connection", (socket) => {
   });
 });
 
-connectDatabase(); // Call function to connect to the database
+connectDatabase(); // Panggil fungsi untuk menghubungkan ke database
 
 // Root endpoint
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-// Start the server
+// Start server
 server.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server berjalan di http://localhost:${port}`);
 });

@@ -28,27 +28,7 @@ export const getLabItems = async (req, res) => {
       return res.status(404).json({ error: "No items found in the database" });
     }
 
-    // Mapping ikon dan warna berdasarkan item_name
-    const iconMapping = {
-      Komputer: {
-        icon: "🖥️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
-      Keyboard: { icon: "⌨️", iconBg: "bg-red-100", iconColor: "text-red-600" },
-      Mouse: {
-        icon: "🖱️",
-        iconBg: "bg-green-100",
-        iconColor: "text-green-600",
-      },
-      "Printer 3D": {
-        icon: "🖨️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
-    };
-
-    // Kelompokkan data berdasarkan lab_name dan tambahkan properti ikon
+    // Kelompokkan data berdasarkan lab_name
     const groupedItems = labItems.reduce((acc, item) => {
       const { lab_name, item_name, available, broken, under_repair, total } =
         item;
@@ -63,11 +43,6 @@ export const getLabItems = async (req, res) => {
         available,
         broken,
         under_repair,
-        ...(iconMapping[item_name] || {
-          icon: "⚙️", // Ikon default
-          iconBg: "bg-gray-100", // Background default
-          iconColor: "text-gray-600", // Warna default
-        }),
       });
 
       return acc;

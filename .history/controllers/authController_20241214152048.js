@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import { hashPassword, comparePassword } from "../utils/hashPass.js";
 import dotenv from "dotenv";
+import { generateToken } from "../middlewares/verifyTokenDas.js";
 
 // Memuat konfigurasi dari file .env
 dotenv.config();

@@ -48,6 +48,12 @@ export const getLabItems = async (req, res) => {
       },
     };
 
+    // Menormalkan nama item ke format yang konsisten (capitalized)
+    const normalizedItemName = item_name
+      .trim()
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+
     // Kelompokkan data berdasarkan lab_name dan tambahkan properti ikon
     const groupedItems = labItems.reduce((acc, item) => {
       const { lab_name, item_name, available, broken, under_repair, total } =

@@ -41,10 +41,10 @@ export const getLabItems = async (req, res) => {
         iconBg: "bg-green-100",
         iconColor: "text-green-600",
       },
-      "Printer 3D": {
-        icon: "🖨️",
+      Keyboard: {
+        icon: "⌨️",
         iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
+        iconColor: "text-blue-600", // Tambahkan mapping lainnya sesuai kebutuhan
       },
     };
 

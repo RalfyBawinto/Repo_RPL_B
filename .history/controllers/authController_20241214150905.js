@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import { hashPassword, comparePassword } from "../utils/hashPass.js";
 import dotenv from "dotenv";
+import { generateToken } from "../middlewares/verifyTokenDas.js";
 
 // Memuat konfigurasi dari file .env
 dotenv.config();
@@ -78,7 +79,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Kirimkan nama pengguna tanpa token
+    // Tidak membuat token, hanya mengirimkan nama pengguna
     res.status(200).json({
       message: "Login successful",
       userName: user.name, // Mengirimkan nama pengguna
@@ -91,26 +92,24 @@ export const login = async (req, res) => {
   }
 };
 
-// Controller untuk mengambil data pengguna berdasarkan ID (tanpa autentikasi token)
+// Controller untuk mengambil data pengguna berdasarkan ID (dengan autentikasi)
 export const getUserData = async (req, res) => {
-  const { email } = req.body; // Ambil email dari body request atau parameter lainnya
-
-  if (!email) {
-    return res.status(400).json({ message: "Email is required" });
+  if (!req.user || !req.user.id) {
+    return res.status(400).json({ message: "User not found." });
   }
 
   try {
-    const user = await User.findOne({ where: { email } });
-
+    const user = await User.findById(req.user.id); // Mengambil data pengguna
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    // Kirimkan data pengguna tanpa token
+    // Menyediakan data yang diperlukan
+    const activities = await Activity.find({ userId: user.id }); // Misalnya aktivitas pengguna
+
     return res.json({
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      name: user.name, // Mengirimkan nama pengguna
+      activities, // Mengirimkan aktivitas terbaru
     });
   } catch (error) {
     console.error("Error fetching user data:", error);

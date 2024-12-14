@@ -14,41 +14,15 @@ const syncDatabase = async () => {
 // Panggil syncDatabase saat aplikasi dimulai
 syncDatabase();
 
-// Endpoint untuk mendapatkan data alat berdasarkan lab_name
+// Endpoint untuk mendapatkan semua data alat lab
 export const getLabItems = async (req, res) => {
   try {
-    const { lab_name } = req.query; // Mengambil lab_name dari query string
-
-    // Jika lab_name tidak diberikan, kirimkan seluruh data
-    const condition = lab_name ? { lab_name } : {};
-
-    const labItems = await lab_items.findAll({ where: condition });
+    const labItems = await lab_items.findAll();
 
     if (labItems.length === 0) {
       return res.status(404).json({ error: "No items found in the database" });
     }
 
-    // Mapping ikon dan warna berdasarkan item_name
-    const iconMapping = {
-      Komputer: {
-        icon: "🖥️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
-      Keyboard: { icon: "⌨️", iconBg: "bg-red-100", iconColor: "text-red-600" },
-      Mouse: {
-        icon: "🖱️",
-        iconBg: "bg-green-100",
-        iconColor: "text-green-600",
-      },
-      "Printer 3D": {
-        icon: "🖨️",
-        iconBg: "bg-blue-100",
-        iconColor: "text-blue-600",
-      },
-    };
-
-    // Kelompokkan data berdasarkan lab_name dan tambahkan properti ikon
     const groupedItems = labItems.reduce((acc, item) => {
       const { lab_name, item_name, available, broken, under_repair, total } =
         item;
@@ -63,17 +37,12 @@ export const getLabItems = async (req, res) => {
         available,
         broken,
         under_repair,
-        ...(iconMapping[item_name] || {
-          icon: "⚙️", // Ikon default
-          iconBg: "bg-gray-100", // Background default
-          iconColor: "text-gray-600", // Warna default
-        }),
       });
 
       return acc;
     }, {});
 
-    res.status(200).json(groupedItems); // Mengirimkan data terkelompok berdasarkan lab_name
+    res.status(200).json(groupedItems);
   } catch (error) {
     console.error("Error fetching lab items:", error.message);
     res.status(500).json({ error: error.message });

@@ -64,7 +64,7 @@ export const getLabItems = async (req, res) => {
         broken,
         under_repair,
         ...(iconMapping[item_name] || {
-          icon: "⚙️", // Ikon default
+          icon: "🖨️", // Ikon default
           iconBg: "bg-gray-100", // Background default
           iconColor: "text-gray-600", // Warna default
         }),

@@ -41,7 +41,7 @@ export const getLabItems = async (req, res) => {
         iconBg: "bg-green-100",
         iconColor: "text-green-600",
       },
-      "Printer 3D": {
+      "Print 3D": {
         icon: "🖨️",
         iconBg: "bg-blue-100",
         iconColor: "text-blue-600",
