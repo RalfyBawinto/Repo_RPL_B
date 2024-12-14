@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize"; // Pastikan Sequelize diimpor
-import { db } from "../config/database.js"; // Pastikan koneksi Sequelize
+import { db } from "../config/Database.js"; // Pastikan koneksi Sequelize
 
 const lab_items = db.define(
   "lab_items",

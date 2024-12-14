@@ -2,9 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { connectDatabase } from "./config/database.js";
-import userRoute from "./routers/userRoute.js";
-import authRoute from "./routers/authRoute.js";
-import monitoringRoute from "./routers/monitoringRoute.js";
+import userRoute from "./backend/routers/userRoute.js";
+import authRoute from "./backend/routers/authRoute.js";
+import monitoringRoute from "./backend/routers/monitoringRoute.js";
 import { Server } from "socket.io";
 import http from "http";
 
