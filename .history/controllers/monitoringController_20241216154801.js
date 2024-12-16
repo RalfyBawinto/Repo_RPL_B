@@ -15,7 +15,7 @@ export const getLabItems = async (req, res) => {
     const labItems = await lab_items.findAll({ where: { lab_name } });
 
     if (!labItems.length) {
-      return res.status(200).json({ [lab_name]: [] }); // Kirimkan array kosong jika tidak ada data
+      return res.status(200).json({ [lab_name]: [] });
     }
 
     const iconMapping = {
@@ -37,7 +37,6 @@ export const getLabItems = async (req, res) => {
       },
     };
 
-    // Kelompokkan data alat berdasarkan nama laboratorium
     const groupedItems = labItems.reduce((acc, item) => {
       const { item_name, available, broken, under_repair } = item;
       const total = available + broken + under_repair;
@@ -58,7 +57,7 @@ export const getLabItems = async (req, res) => {
       return acc;
     }, {});
 
-    res.status(200).json(groupedItems); // Kirim data yang telah dikelompokkan
+    res.status(200).json(groupedItems);
   } catch (error) {
     console.error("Error fetching lab items:", error.message);
     res.status(500).json({ error: error.message });
@@ -66,7 +65,7 @@ export const getLabItems = async (req, res) => {
 };
 
 // Endpoint untuk menambahkan atau mengupdate data alat
-export const addLabItem = async (req, res) => {
+export const addOrUpdateLabItem = async (req, res) => {
   try {
     const { lab_name, item_name, available, broken, under_repair } = req.body;
 
@@ -86,39 +85,51 @@ export const addLabItem = async (req, res) => {
       where: { lab_name, item_name },
     });
 
-    let updatedItem;
     if (existingItem) {
-      updatedItem = await existingItem.update({
-        available,
-        broken,
-        under_repair,
-        total,
-      });
-    } else {
-      updatedItem = await lab_items.create({
+      // Update jika item sudah ada
+      await existingItem.update({ available, broken, under_repair, total });
+
+      // Emit pembaruan ke semua client
+      io.emit("updateLabItems", {
         lab_name,
-        item_name,
-        available,
-        broken,
-        under_repair,
-        total,
+        item: {
+          id: existingItem.id,
+          lab_name,
+          item_name,
+          available,
+          broken,
+          under_repair,
+          total,
+        },
+      });
+
+      return res.status(200).json({
+        message: "Item updated successfully",
+        item: existingItem,
       });
     }
 
-    // Ambil data terbaru dari laboratorium untuk dikirimkan ke klien
-    const updatedItems = await lab_items.findAll({ where: { lab_name } });
+    // Buat data baru jika item belum ada
+    const newItem = await lab_items.create({
+      lab_name,
+      item_name,
+      available,
+      broken,
+      under_repair,
+      total,
+    });
 
-    // Emit pembaruan hanya ke laboratorium yang bersangkutan
-    io.emit("updateLabItems", { [lab_name]: updatedItems });
+    io.emit("updateLabItems", {
+      lab_name,
+      item: newItem,
+    });
 
-    res.status(200).json({
-      message: existingItem
-        ? "Item updated successfully"
-        : "Item added successfully",
-      item: updatedItem,
+    res.status(201).json({
+      message: "Item added successfully",
+      item: newItem,
     });
   } catch (error) {
-    console.error("Error adding lab item:", error.message);
+    console.error("Error adding or updating lab item:", error.message);
     res.status(500).json({ error: error.message });
   }
 };

@@ -39,9 +39,9 @@ POST http://localhost:3500/api/monitoring/add_item
 Content-Type: application/json
 
 {
-  "lab_name": "Multi Media",
+  "lab_name": "Teknologi Basis Data",
   "item_name": "Printer 2D",
-  "available": 2,
+  "available": 1,
   "broken": 0,
   "under_repair": 0
 }

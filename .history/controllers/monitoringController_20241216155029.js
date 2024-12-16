@@ -18,6 +18,9 @@ export const getLabItems = async (req, res) => {
       return res.status(200).json({ [lab_name]: [] }); // Kirimkan array kosong jika tidak ada data
     }
 
+    // Emit pembaruan data ke socket
+    io.emit("updateLabItems", { [lab_name]: labItems });
+
     const iconMapping = {
       Komputer: {
         icon: "🖥️",
@@ -86,36 +89,31 @@ export const addLabItem = async (req, res) => {
       where: { lab_name, item_name },
     });
 
-    let updatedItem;
     if (existingItem) {
-      updatedItem = await existingItem.update({
-        available,
-        broken,
-        under_repair,
-        total,
-      });
-    } else {
-      updatedItem = await lab_items.create({
-        lab_name,
-        item_name,
-        available,
-        broken,
-        under_repair,
-        total,
+      await existingItem.update({ available, broken, under_repair, total });
+
+      io.emit("updateLabItems", { lab_name, item: existingItem });
+
+      return res.status(200).json({
+        message: "Item updated successfully",
+        item: existingItem,
       });
     }
 
-    // Ambil data terbaru dari laboratorium untuk dikirimkan ke klien
-    const updatedItems = await lab_items.findAll({ where: { lab_name } });
+    const newItem = await lab_items.create({
+      lab_name,
+      item_name,
+      available,
+      broken,
+      under_repair,
+      total,
+    });
 
-    // Emit pembaruan hanya ke laboratorium yang bersangkutan
-    io.emit("updateLabItems", { [lab_name]: updatedItems });
+    io.emit("updateLabItems", { lab_name, item: newItem });
 
-    res.status(200).json({
-      message: existingItem
-        ? "Item updated successfully"
-        : "Item added successfully",
-      item: updatedItem,
+    res.status(201).json({
+      message: "Item added successfully",
+      item: newItem,
     });
   } catch (error) {
     console.error("Error adding lab item:", error.message);
