@@ -7,17 +7,27 @@ import authRoute from "./routes/authRoute.js";
 import monitoringRoute from "./routes/monitoringRoute.js";
 import { Server } from "socket.io";
 import http from "http";
-import reservationRoute from "./routes/reservations.js";
-import reservationRouter from "./middlewares/reservationMiddleware.js"; // Impor router dari reservationMiddleware.js
-import { db } from "./config/Database.js";
+import Reservation from "./models/ReservationModel.js";
+import db from "./cconfig/Database.js";
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 const port = 3500;
 
-// Panggil koneksi database dari file Database.js
-connectDatabase();
+// Sinkronisasi Sequelize dengan database
+(async () => {
+  try {
+    await db.authenticate();
+    console.log("Database berhasil terkoneksi.");
+
+    // Sinkronisasi model ke database (otomatis buat tabel jika belum ada)
+    await Reservation.sync();
+    console.log("Tabel Reservation telah dibuat atau sudah ada.");
+  } catch (error) {
+    console.error("Gagal terkoneksi ke database:", error);
+  }
+})();
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -25,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3000", // Change to your frontend URL
-    methods: ["GET", "POST", "FETCH"],
+    methods: ["GET", "POST", "FATCH"],
     allowedHeaders: ["Content-Type"],
   })
 );
@@ -34,8 +44,6 @@ app.use(
 app.use("/api/user", userRoute);
 app.use("/api", authRoute);
 app.use("/api", monitoringRoute);
-app.use("/api/reservations", reservationRoute);
-app.use(reservationRouter);
 
 // Export `io` for use in other files
 export { io };
@@ -48,6 +56,8 @@ io.on("connection", (socket) => {
     console.log("User disconnected: " + socket.id);
   });
 });
+
+connectDatabase(); // Call function to connect to the database
 
 // Root endpoint
 app.get("/", (req, res) => {

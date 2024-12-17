@@ -46,15 +46,13 @@ Content-Type: application/json
   "under_repair": 0
 }
 
-### Mengirim data reservasi untuk ruangan
-POST http://localhost:3500/api/reservations/add
+###
+POST http://localhost:3500/api/reservations
 Content-Type: application/json
 
 {
-  "date": "2024-12-18",
-  "startTime": "12:00",
-  "endTime": "13:00",
-  "room": "Keamanan Cyber",
-  "name": "asal-asal",
-  "role": "tess"
+  "name": "user1",
+  "role": 101,
+  "startTime": "2024-12-18T10:00:00",
+  "endTime": "2024-12-18T12:00:00"
 }

@@ -8,7 +8,7 @@ import monitoringRoute from "./routes/monitoringRoute.js";
 import { Server } from "socket.io";
 import http from "http";
 import reservationRoute from "./routes/reservations.js";
-import reservationRouter from "./middlewares/reservationMiddleware.js"; // Impor router dari reservationMiddleware.js
+import reservationRouter from "./middleware/reservationMiddleware.js"; // Impor router dari reservationMiddleware.js
 import { db } from "./config/Database.js";
 
 const app = express();

@@ -8,7 +8,6 @@ import monitoringRoute from "./routes/monitoringRoute.js";
 import { Server } from "socket.io";
 import http from "http";
 import reservationRoute from "./routes/reservations.js";
-import reservationRouter from "./middlewares/reservationMiddleware.js"; // Impor router dari reservationMiddleware.js
 import { db } from "./config/Database.js";
 
 const app = express();
@@ -35,7 +34,6 @@ app.use("/api/user", userRoute);
 app.use("/api", authRoute);
 app.use("/api", monitoringRoute);
 app.use("/api/reservations", reservationRoute);
-app.use(reservationRouter);
 
 // Export `io` for use in other files
 export { io };
