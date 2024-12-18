@@ -1,13 +1,16 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Path file data pengguna
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
 // Fungsi untuk mendapatkan profil
-const getProfile = (req, res) => {
+export const getProfile = (req, res) => {
   try {
-    const username = req.user.username; // Diambil dari middleware autentikasi
+    const username = req.user.username; // Diambil dari middleware
     const users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'));
     const user = users.find((u) => u.username === username);
 
@@ -30,7 +33,7 @@ const getProfile = (req, res) => {
 };
 
 // Fungsi untuk memperbarui profil
-const updateProfile = (req, res) => {
+export const updateProfile = (req, res) => {
   try {
     const username = req.user.username;
     const { name, email, photo_url } = req.body;
@@ -47,7 +50,6 @@ const updateProfile = (req, res) => {
     if (email) users[userIndex].email = email;
     if (photo_url) users[userIndex].photo_url = photo_url;
 
-    // Simpan perubahan ke file JSON
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 
     res.json({ status: 'success', message: 'Profile updated successfully' });
@@ -55,5 +57,3 @@ const updateProfile = (req, res) => {
     res.status(500).json({ status: 'error', message: error.message });
   }
 };
-
-module.exports = { getProfile, updateProfile };
