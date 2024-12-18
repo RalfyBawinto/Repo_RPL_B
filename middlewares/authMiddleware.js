@@ -13,3 +13,25 @@ export const corsMiddleware = cors({
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 });
+
+const jwt = require('jsonwebtoken');
+
+const protect = (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, 'SECRET_KEY'); // Ganti 'SECRET_KEY' dengan key Anda
+      req.user = decoded; // Menyimpan data user dari token
+      next();
+    } catch (error) {
+      return res.status(401).json({ status: 'error', message: 'Not authorized, invalid token' });
+    }
+  }
+
+  if (!token) {
+    return res.status(401).json({ status: 'error', message: 'Not authorized, no token' });
+  }
+};
+
+module.exports = { protect };
