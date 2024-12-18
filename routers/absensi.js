@@ -1,14 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const { generateQRCode, getAttendance, addAttendance } = require('../controllers/absensiController');
+import express from 'express';
+import { generateQRCode, getAttendance, addAttendance } from '../controllers/absensiController.js';
 
-// Endpoint untuk generate QR Code
+const router = express.Router();
+
+// Route untuk generate QR Code
 router.get('/generate-qr', generateQRCode);
 
-// Endpoint untuk riwayat absensi
-router.get('/history', getAttendance);
+// Route untuk mendapatkan riwayat absensi
+router.get('/attendance', getAttendance);
 
-// Endpoint untuk submit absensi
-router.post('/submit', addAttendance);
+// Route untuk menambahkan absensi baru
+router.post('/attendance', addAttendance);
 
-module.exports = router;
+export default router;
