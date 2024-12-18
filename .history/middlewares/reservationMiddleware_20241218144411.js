@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Reservation from "../models/ReservationModel.js";
+import Reservation from "../models/ReservationModel.js"; // Impor model Reservation
 import { Op } from "sequelize";
 
 const router = Router();

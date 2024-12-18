@@ -37,7 +37,7 @@ app.use("/api", authRoute);
 app.use("/api", monitoringRoute);
 app.use("/api/reservations", reservationRoute);
 app.use(reservationRouter);
-app.use("/api", laporanRoute);
+app.use("/api", laporanRoutes);
 
 // Export `io` for use in other files
 export { io };
