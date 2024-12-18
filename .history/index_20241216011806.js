@@ -1,0 +1,56 @@
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { connectDatabase } from "./config/Database.js"; // Your custom database connection function
+import userRoute from "./routes/userRoute.js";
+import authRoute from "./routes/authRoute.js";
+import monitoringRoute from "./routes/monitoringRoute.js";
+import reservationRoute from "./routes/reservationRoutes.js"; // Import reservation route
+import { Server } from "socket.io";
+import http from "http";
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+const port = 3500;
+
+// Middleware setup
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Adjust according to your frontend URL
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
+// Route setup
+app.use("/user", userRoute);
+app.use("/", authRoute);
+app.use("/", monitoringRoute);
+app.use("/reservation", reservationRoute); // Add reservation route
+
+// Export `io` for use in other files
+export { io };
+
+// Integrate Socket.IO
+io.on("connection", (socket) => {
+  console.log("User connected: " + socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected: " + socket.id);
+  });
+});
+
+connectDatabase(); // Call function to connect to the database
+
+// Root endpoint
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+// Start the server
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});

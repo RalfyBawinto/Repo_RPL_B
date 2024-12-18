@@ -1,0 +1,49 @@
+GET http://localhost:3500/users
+
+###
+# Test Signup API
+POST http://localhost:3500/signup
+Content-Type: application/json
+
+{
+  "name": "ade",
+  "email": "ade@example.com",
+  "password": "ade_tes",
+  "role": "Mahasiswa",
+  "subRole": "Mahasiswa Umum"
+}
+
+###
+# Test Login API
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+  "email": "ade@example.com",
+  "password": "ade_tes"
+}
+
+###
+GET http://localhost:3500/user/profile
+Accept: application/json
+
+###
+# Mendapatkan data alat berdasarkan lab_name
+GET http://localhost:3500/monitoring
+Content-Type: application/json
+
+
+###
+## Menambahkan atau update item 
+POST http://localhost:3500/monitoring/add_item
+Content-Type: application/json
+
+{
+  "lab_name": "Cyber",
+  "item_name": "Printer 3D",
+  "total": 0,
+  "available": 0,
+  "broken": 0,
+  "under_repair": 0
+}
+
