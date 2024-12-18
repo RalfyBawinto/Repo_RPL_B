@@ -53,17 +53,33 @@ server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const absensiRoutes = require('./routes/absensi');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import absensiRoutes from './routes/absensiRoutes.js';
 
-const index = express();
-const PORT = 5000;
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+
+// Routes
+app.use('/api/absensi', absensiRoutes);
+
+// Test Route
+app.get('/', (req, res) => {
+  res.send('Absensi Backend Running...');
+});
+
+// Server Listening
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
 
 // Routes
 app.use('/api/absensi', absensiRoutes);
