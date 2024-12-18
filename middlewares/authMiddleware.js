@@ -14,10 +14,11 @@ export const corsMiddleware = cors({
   allowedHeaders: ["Content-Type"],
 });
 
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const protect = (req, res, next) => {
+export const protect = (req, res, next) => {
   let token;
+
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
@@ -34,4 +35,3 @@ const protect = (req, res, next) => {
   }
 };
 
-module.exports = { protect };
