@@ -1,0 +1,60 @@
+GET http://localhost:3500/api/users
+
+###
+# Test Signup API
+POST http://localhost:3500/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "email": "admin@example.com",
+  "password": "123",
+  "role": "Mahasiswa",
+  "subRole": "Asisten Lab"
+}
+
+###
+# Test Login API
+POST http://localhost:3500/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user2@example.com",
+  "password": "123"
+}
+
+###
+GET http://localhost:3500/api/user/profile
+Accept: application/json
+
+###
+# Mendapatkan data alat berdasarkan lab_name
+GET http://localhost:3500/api/monitoring
+Content-Type: application/json
+
+
+###
+## Menambahkan atau update item 
+POST http://localhost:3500/api/monitoring/add_item
+Content-Type: application/json
+
+{
+  "lab_name": "Multi Media",
+  "item_name": "Printer 2D",
+  "available": 2,
+  "broken": 0,
+  "under_repair": 0
+}
+
+### Mengirim data reservasi untuk ruangan
+POST http://localhost:3500/api/reservations/add
+Content-Type: application/json
+
+{
+  "date": "2024-12-18",
+  "startTime": "12:00",
+  "endTime": "13:00",
+  "room": "Keamanan Cyber",
+  "name": "asal-asal",
+  "role": "tess"
+}
